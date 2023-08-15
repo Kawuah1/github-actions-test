@@ -1,9 +1,36 @@
 name: Actions Workflow 
 
 on:
-    push:
-    pull_request:
-        types: [opened, reopened, closed, assigned]
+  push:
+    branches:
+      - master
+      - 'feature/*' # matches feature/featA, feature/featB
+      - 'feature/**' # matches feature/feat/a
+      - '!feature/featC' # The exclamation mark will cause it to ignore this branch. Make sure it's stated after the patterns
+
+    # branches-ignore:
+    #   - test
+
+    tags:
+      - v1.*
+
+    # tags-ignore:
+    #     - v2.*
+    paths:
+      - '**.js' # This workflow will run only if we push a javascript file.
+      - '!filename.js' # This will run for all javascript files except the ones with filename because of the exclamation(!)"
+
+    # paths-ignore:
+    #   - '**.py'
+
+    # schedule:
+    #     - cron: "0/5 * * * *"
+    #     - cron: "0/6 * * * *"
+    # repository_dispatch:
+    #    types: [build]
+    #push:
+    # pull_request:
+   #     types: [opened, reopened, closed, assigned]
 
 jobs:
     run-github-actions:
